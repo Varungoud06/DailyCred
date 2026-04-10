@@ -22,7 +22,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
 
     private final LoanPlanRepository repository;
 
-    // ✅ CREATE
+    // CREATE
     @Override
     public ApiResponse<LoanPlanResponse> createLoanPlan(LoanPlanRequest request) {
 
@@ -47,7 +47,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    // ✅ GET BY ID
+    //  GET BY ID
     @Override
     public ApiResponse<LoanPlanResponse> getLoanPlanById(Long id) {
 
@@ -63,7 +63,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    // ✅ GET ALL
+    //  GET ALL
     @Override
     public ApiResponse<List<LoanPlanResponse>> getAllLoanPlans() {
 
@@ -79,7 +79,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    // ✅ UPDATE
+    //  UPDATE
     @Override
     public ApiResponse<LoanPlanResponse> updateLoanPlan(Long id, LoanPlanRequest request) {
 
@@ -107,7 +107,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    // ✅ DELETE
+    // DELETE
     @Override
     public ApiResponse<String> deleteLoanPlan(Long id) {
 
@@ -125,7 +125,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    // 🔁 MAPPER (No utils as per your requirement)
+    // MAPPER (No utils as per your requirement)
     private LoanPlanResponse mapToResponse(LoanPlan loanPlan) {
         return LoanPlanResponse.builder()
                 .id(loanPlan.getId())
