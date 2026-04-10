@@ -1,5 +1,5 @@
 package com.unqiuehire.kashflow.constant;
-public enum MessageConstants {
+public enum LenderConstants {
 
     LENDER_CREATED("Lender created successfully"),
     LENDER_UPDATED("Lender updated successfully"),
@@ -10,7 +10,7 @@ public enum MessageConstants {
 
     private final String message;
 
-    MessageConstants(String message) {
+    LenderConstants(String message) {
         this.message = message;
     }
 
