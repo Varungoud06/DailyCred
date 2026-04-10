@@ -1,4 +1,8 @@
 package com.unqiuehire.kashflow.constant;
 
-public class StatusEnum {
+public enum StatusEnum {
+
+    ACTIVE,
+    INACTIVE,
+    BLOCKED
 }

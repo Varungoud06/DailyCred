@@ -1,14 +1,17 @@
 package com.unqiuehire.kashflow.dto.requestdto;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
-public class LenderRequestDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class BorrowerRequestDto {
 
-    private String lenderName;
+    private String borrowerName;
     private Integer cibil;
     private String dateOfBirth;
     private String password;

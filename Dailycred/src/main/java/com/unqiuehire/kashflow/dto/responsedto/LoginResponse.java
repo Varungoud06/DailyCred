@@ -1,11 +1,11 @@
-package com.unqiuehire.kashflow.dto.responsedto;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class LoginResponse {
-    private String token;
-    private String role;
-}
+//package com.unqiuehire.kashflow.dto.responsedto;
+//
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//
+//@Getter
+//@AllArgsConstructor
+//public class LoginResponse {
+//    private String token;
+//    private String role;
+//}

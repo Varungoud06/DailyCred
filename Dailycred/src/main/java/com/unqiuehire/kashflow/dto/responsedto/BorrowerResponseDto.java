@@ -1,4 +1,5 @@
-package com.unqiuehire.kashflow.dto.requestdto;
+package com.unqiuehire.kashflow.dto.responsedto;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -6,12 +7,12 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class LenderRequestDto {
+public class BorrowerResponseDto {
 
-    private String lenderName;
+    private Long borrowerId;
+    private String borrowerName;
     private Integer cibil;
     private String dateOfBirth;
-    private String password;
     private Boolean isActive;
     private String phoneNumber;
     private String pincode;

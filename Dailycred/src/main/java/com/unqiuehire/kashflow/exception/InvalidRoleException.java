@@ -1,7 +1,7 @@
-package com.unqiuehire.kashflow.exception;
-
-public class InvalidRoleException extends RuntimeException {
-    public InvalidRoleException(String message) {
-        super(message);
-    }
-}
+//package com.unqiuehire.kashflow.exception;
+//
+//public class InvalidRoleException extends RuntimeException {
+//    public InvalidRoleException(String message) {
+//        super(message);
+//    }
+//}
