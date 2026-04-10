@@ -4,42 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b9adb6c-f160-43bf-a547-10fa62c93b2b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/.ai/mcp/mcp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/constant/LoanPlanStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/constant/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/controller/LoanPlanController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/dto/requestdto/LoanPlanRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/dto/requestdto/LoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/dto/responsedto/LoanPlanResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/dto/responsedto/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/entity/LoanPlan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/exception/InvalidPasswordException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/exception/InvalidRoleException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/exception/UserNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/repository/LoanPlanRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/security/CustomUserDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/security/JwtFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/service/AuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/service/JwtService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/service/LoanPlanService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backup_idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backup_idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backup_idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backup_idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backup_idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backup_idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DailyCred.iml" beforeDir="false" afterPath="$PROJECT_DIR$/backup_idea/DailyCred.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backup_idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dailycred/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/LenderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/LenderServiceImpl.java" afterDir="false" />
+    <list default="true" id="9b9adb6c-f160-43bf-a547-10fa62c93b2b" name="Changes" comment="Merge branch 'main' of https://github.com/Varungoud06/DailyCred into feature/borrower&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/AuthServiceImpl.java&#10;#&#9;Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/JwtServiceImpl.java&#10;#&#9;Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/LoanPlanServiceImpl.java">
+      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/AuthServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/JwtServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/LoanPlanServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
