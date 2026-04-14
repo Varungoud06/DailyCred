@@ -1,10 +1,10 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 
 import com.unqiuehire.kashflow.constant.ApiStatus;
 import com.unqiuehire.kashflow.constant.LoanPlanStatus;
 import com.unqiuehire.kashflow.dto.requestdto.LoanPlanRequest;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
-import com.unqiuehire.kashflow.dto.responsedto.LoanPlanResponse;
+import com.unqiuehire.kashflow.dto.responsedto.LoanPlanResponseDto;
 import com.unqiuehire.kashflow.entity.LoanPlan;
 import com.unqiuehire.kashflow.exception.ResourceNotFoundException;
 import com.unqiuehire.kashflow.repository.LoanPlanRepository;
@@ -22,9 +22,8 @@ public class LoanPlanServiceImpl implements LoanPlanService {
 
     private final LoanPlanRepository repository;
 
-    // CREATE
     @Override
-    public ApiResponse<LoanPlanResponse> createLoanPlan(LoanPlanRequest request) {
+    public ApiResponse<LoanPlanResponseDto> createLoanPlan(LoanPlanRequest request) {
 
         LoanPlan loanPlan = LoanPlan.builder()
                 .planName(request.getPlanName())
@@ -47,9 +46,8 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    //  GET BY ID
     @Override
-    public ApiResponse<LoanPlanResponse> getLoanPlanById(Long id) {
+    public ApiResponse<LoanPlanResponseDto> getLoanPlanById(Long id) {
 
         LoanPlan loanPlan = repository.findById(id)
                 .orElseThrow(() ->
@@ -63,11 +61,10 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    //  GET ALL
     @Override
-    public ApiResponse<List<LoanPlanResponse>> getAllLoanPlans() {
+    public ApiResponse<List<LoanPlanResponseDto>> getAllLoanPlans() {
 
-        List<LoanPlanResponse> list = repository.findAll()
+        List<LoanPlanResponseDto> list = repository.findAll()
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
@@ -79,9 +76,8 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    //  UPDATE
     @Override
-    public ApiResponse<LoanPlanResponse> updateLoanPlan(Long id, LoanPlanRequest request) {
+    public ApiResponse<LoanPlanResponseDto> updateLoanPlan(Long id, LoanPlanRequest request) {
 
         LoanPlan plan = repository.findById(id)
                 .orElseThrow(() ->
@@ -107,7 +103,6 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         );
     }
 
-    // DELETE
     @Override
     public ApiResponse<String> deleteLoanPlan(Long id) {
 
@@ -124,10 +119,8 @@ public class LoanPlanServiceImpl implements LoanPlanService {
                 "Deleted successfully"
         );
     }
-
-    // MAPPER (No utils as per your requirement)
-    private LoanPlanResponse mapToResponse(LoanPlan loanPlan) {
-        return LoanPlanResponse.builder()
+    private LoanPlanResponseDto mapToResponse(LoanPlan loanPlan) {
+        return LoanPlanResponseDto.builder()
                 .id(loanPlan.getId())
                 .planName(loanPlan.getPlanName())
                 .lenderId(loanPlan.getLenderId())
