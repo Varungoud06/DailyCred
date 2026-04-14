@@ -1,8 +1,7 @@
 package com.unqiuehire.kashflow.serviceImpl;
 
 import com.unqiuehire.kashflow.constant.ApiStatus;
-import com.unqiuehire.kashflow.constant.StatusEnum;
-import com.unqiuehire.kashflow.constant.MessageConstants;
+import com.unqiuehire.kashflow.constant.ApplicationStatus;
 import com.unqiuehire.kashflow.dto.requestdto.LoanApplicationRequestDto;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
 import com.unqiuehire.kashflow.dto.responsedto.LoanApplicationResponseDto;
@@ -10,15 +9,16 @@ import com.unqiuehire.kashflow.entity.LoanApplication;
 import com.unqiuehire.kashflow.exception.ResourceNotFoundException;
 import com.unqiuehire.kashflow.repository.LoanApplicationRepository;
 import com.unqiuehire.kashflow.service.LoanApplicationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class LoanApplicationServiceImpl implements LoanApplicationService {
-    @Autowired
-    private LoanApplicationRepository repository;
+
+    private final LoanApplicationRepository repository;
 
     @Override
     public ApiResponse<LoanApplicationResponseDto> createApplication(LoanApplicationRequestDto dto) {
@@ -29,98 +29,58 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
         app.setLenderId(dto.getLenderId());
         app.setPlanId(dto.getPlanId());
         app.setLoanAmount(dto.getLoanAmount());
-        app.setStatus(StatusEnum.PENDING);
-        app.setApplicationDate(LocalDate.now());
 
         LoanApplication saved = repository.save(app);
 
         return new ApiResponse<>(
                 ApiStatus.SUCCESS,
-                MessageConstants.LOAN_APPLICATION_CREATED.getMessage(),
+                "Loan application created",
                 mapToDto(saved)
         );
     }
 
     @Override
     public ApiResponse<LoanApplicationResponseDto> getById(Long id) {
-
         LoanApplication app = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        MessageConstants.LOAN_APPLICATION_NOT_FOUND.getMessage()
-                ));
+                .orElseThrow(() -> new ResourceNotFoundException("Application not found"));
 
-        return new ApiResponse<>(
-                ApiStatus.SUCCESS,
-                MessageConstants.LOAN_APPLICATION_FOUND.getMessage(),
-                mapToDto(app)
-        );
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Fetched", mapToDto(app));
     }
 
     @Override
     public ApiResponse<List<LoanApplicationResponseDto>> getByBorrower(Long borrowerId) {
 
-        List<LoanApplication> list = repository.findByBorrowerId(borrowerId);
-
-        if (list.isEmpty()) {
-            throw new ResourceNotFoundException(
-                    "No applications found for borrower: " + borrowerId
-            );
-        }
-
-        List<LoanApplicationResponseDto> dtoList = list.stream()
+        List<LoanApplicationResponseDto> list = repository.findByBorrowerId(borrowerId)
+                .stream()
                 .map(this::mapToDto)
                 .toList();
 
-        return new ApiResponse<>(
-                ApiStatus.SUCCESS,
-                MessageConstants.LOAN_APPLICATIONS_FOUND.getMessage(),
-                dtoList
-        );
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Fetched", list);
     }
-
 
     @Override
     public ApiResponse<List<LoanApplicationResponseDto>> getByLender(Long lenderId) {
 
-        List<LoanApplication> list = repository.findByLenderId(lenderId);
-
-        if (list.isEmpty()) {
-            throw new ResourceNotFoundException(
-                    "No applications found for lender: " + lenderId
-            );
-        }
-
-        List<LoanApplicationResponseDto> dtoList = list.stream()
+        List<LoanApplicationResponseDto> list = repository.findByLenderId(lenderId)
+                .stream()
                 .map(this::mapToDto)
                 .toList();
 
-        return new ApiResponse<>(
-                ApiStatus.SUCCESS,
-                MessageConstants.LOAN_APPLICATIONS_FOUND.getMessage(),
-                dtoList
-        );
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Fetched", list);
     }
+
     @Override
     public ApiResponse<String> cancelApplication(Long id) {
 
         LoanApplication app = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        MessageConstants.LOAN_APPLICATION_NOT_FOUND.getMessage()
-                ));
+                .orElseThrow(() -> new ResourceNotFoundException("Application not found"));
 
-        if (app.getStatus() == StatusEnum.CANCELLED) {
-            throw new IllegalArgumentException("Application already cancelled");
-        }
-
-        app.setStatus(StatusEnum.CANCELLED);
+        app.setStatus(ApplicationStatus.CANCELLED);
         repository.save(app);
 
-        return new ApiResponse<>(
-                ApiStatus.SUCCESS,
-                MessageConstants.LOAN_APPLICATION_CANCELLED.getMessage(),
-                "Cancelled application id: " + id
-        );
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Cancelled", "ID: " + id);
     }
+
     private LoanApplicationResponseDto mapToDto(LoanApplication app) {
 
         LoanApplicationResponseDto dto = new LoanApplicationResponseDto();

@@ -16,5 +16,6 @@ public interface LoanApplicationService {
 
     ApiResponse<List<LoanApplicationResponseDto>> getByLender(Long lenderId);
 
+
     ApiResponse<String> cancelApplication(Long id);
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoanApplicationResponseDto {
+
     private Long applicationId;
     private Long borrowerId;
     private Long lenderId;

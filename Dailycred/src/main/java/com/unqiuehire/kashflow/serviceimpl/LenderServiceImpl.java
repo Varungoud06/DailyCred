@@ -1,13 +1,12 @@
 package com.unqiuehire.kashflow.serviceImpl;
 import com.unqiuehire.kashflow.constant.ApiStatus;
-import com.unqiuehire.kashflow.constant.MessageConstants;
+import com.unqiuehire.kashflow.constant.LenderConstants;
 import com.unqiuehire.kashflow.dto.requestdto.LenderRequestDto;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
 import com.unqiuehire.kashflow.dto.responsedto.LenderResponseDto;
 import com.unqiuehire.kashflow.entity.Lender;
 import com.unqiuehire.kashflow.repository.LenderRepository;
 import com.unqiuehire.kashflow.service.LenderService;
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,7 @@ public class LenderServiceImpl implements LenderService {
 
         return new ApiResponse<>(
                 ApiStatus.SUCCESS,
-                MessageConstants.LENDER_CREATED.getMessage(),
+                LenderConstants.LENDER_CREATED.getMessage(),
                 responseDto
         );
     }
@@ -53,7 +52,7 @@ public class LenderServiceImpl implements LenderService {
         if (optionalLender.isEmpty()) {
             return new ApiResponse<>(
                     ApiStatus.FAILURE,
-                    MessageConstants.LENDER_NOT_FOUND.getMessage(),
+                    LenderConstants.LENDER_NOT_FOUND.getMessage(),
                     null
             );
         }
@@ -63,7 +62,7 @@ public class LenderServiceImpl implements LenderService {
 
         return new ApiResponse<>(
                 ApiStatus.SUCCESS,
-                MessageConstants.LENDER_FOUND.getMessage(),
+                LenderConstants.LENDER_FOUND.getMessage(),
                 responseDto
         );
     }
@@ -79,7 +78,7 @@ public class LenderServiceImpl implements LenderService {
 
         return new ApiResponse<>(
                 ApiStatus.SUCCESS,
-                MessageConstants.LENDERS_FOUND.getMessage(),
+                LenderConstants.LENDERS_FOUND.getMessage(),
                 responseDtoList
         );
     }
@@ -91,7 +90,7 @@ public class LenderServiceImpl implements LenderService {
         if (optionalLender.isEmpty()) {
             return new ApiResponse<>(
                     ApiStatus.FAILURE,
-                    MessageConstants.LENDER_NOT_FOUND.getMessage(),
+                    LenderConstants.LENDER_NOT_FOUND.getMessage(),
                     null
             );
         }
@@ -113,7 +112,7 @@ public class LenderServiceImpl implements LenderService {
 
         return new ApiResponse<>(
                 ApiStatus.SUCCESS,
-                MessageConstants.LENDER_UPDATED.getMessage(),
+                LenderConstants.LENDER_UPDATED.getMessage(),
                 responseDto
         );
     }
@@ -125,7 +124,7 @@ public class LenderServiceImpl implements LenderService {
         if (optionalLender.isEmpty()) {
             return new ApiResponse<>(
                     ApiStatus.FAILURE,
-                    MessageConstants.LENDER_NOT_FOUND.getMessage(),
+                    LenderConstants.LENDER_NOT_FOUND.getMessage(),
                     null
             );
         }
@@ -134,7 +133,7 @@ public class LenderServiceImpl implements LenderService {
 
         return new ApiResponse<>(
                 ApiStatus.SUCCESS,
-                MessageConstants.LENDER_DELETED.getMessage(),
+                LenderConstants.LENDER_DELETED.getMessage(),
                 "Deleted lender with id: " + lenderId
         );
     }

@@ -1,11 +1,12 @@
 package com.unqiuehire.kashflow.entity;
 
-import com.unqiuehire.kashflow.constant.StatusEnum;
+import com.unqiuehire.kashflow.constant.ApplicationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "loan_applications")
@@ -24,7 +25,23 @@ public class LoanApplication {
     private Double loanAmount;
 
     @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private ApplicationStatus status;
 
     private LocalDate applicationDate;
+    private String rejectionReason;
+    private Boolean isLoanCreated = false;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.applicationDate = LocalDate.now();
+        this.status = ApplicationStatus.PENDING;
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

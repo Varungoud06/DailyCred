@@ -1,16 +1,8 @@
 package com.unqiuehire.kashflow.constant;
-
 import lombok.Getter;
 
 @Getter
-public enum MessageConstants {
-
-    LENDER_CREATED("Lender created successfully"),
-    LENDER_UPDATED("Lender updated successfully"),
-    LENDER_FOUND("Lender fetched successfully"),
-    LENDERS_FOUND("Lenders fetched successfully"),
-    LENDER_DELETED("Lender deleted successfully"),
-    LENDER_NOT_FOUND("Lender not found"),
+public enum LoanApplicationConstants {
 
     LOAN_APPLICATION_CREATED("Loan application created successfully"),
     LOAN_APPLICATION_FOUND("Loan application fetched successfully"),
@@ -20,7 +12,7 @@ public enum MessageConstants {
 
     private final String message;
 
-    MessageConstants(String message) {
+    LoanApplicationConstants(String message) {
         this.message = message;
     }
 

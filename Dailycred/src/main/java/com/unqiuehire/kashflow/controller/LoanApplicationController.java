@@ -4,17 +4,17 @@ import com.unqiuehire.kashflow.dto.requestdto.LoanApplicationRequestDto;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
 import com.unqiuehire.kashflow.dto.responsedto.LoanApplicationResponseDto;
 import com.unqiuehire.kashflow.service.LoanApplicationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/loan-applications")
+@RequiredArgsConstructor
 public class LoanApplicationController {
 
-    @Autowired
-    private LoanApplicationService service;
+    private final LoanApplicationService service;
 
     @PostMapping
     public ApiResponse<LoanApplicationResponseDto> create(@RequestBody LoanApplicationRequestDto dto) {
