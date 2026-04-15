@@ -35,7 +35,7 @@ public class RepaymentServiceImpl implements RepaymentService {
         LoanApplication loanApplication = loanApplicationRepository.findById(request.getLoanApplicationId())
                 .orElseThrow(() -> new RuntimeException("Loan Application not found"));
 
-        // ✅ VALIDATION
+        //  VALIDATION
         if (!loan.getLoanApplicationId().equals(request.getLoanApplicationId())) {
             throw new RuntimeException("Loan mismatch");
         }
@@ -43,7 +43,7 @@ public class RepaymentServiceImpl implements RepaymentService {
         double amount = request.getAmountPaid();
         double remaining = loan.getRemainingAmount();
 
-        // 🔥 BUSINESS LOGIC
+        //  BUSINESS LOGIC
 
         boolean isPartial = amount < loan.getDailyEmi();
         boolean isMissed = request.getMissedDays() != null && request.getMissedDays() > 0;
@@ -71,7 +71,7 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         loanRepository.save(loan);
 
-        // ✅ Save repayment
+        //  Save repayment
         Repayment repayment = Repayment.builder()
                 .loan(loan)
                 .loanApplication(loanApplication)
