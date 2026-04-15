@@ -37,9 +37,9 @@ public class Lender {
     @Column(name = "address", nullable = false, length = 500)
     private String address;
 
-    @Column(name = "aadhar_card_number", nullable = false, unique = true)
+    @Column(name = "aadhar_card_number", nullable = true, unique = true)
     private String aadharCardNumber;
 
-    @Column(name = "pan_card_number", nullable = false, unique = true)
+    @Column(name = "pan_card_number", nullable = true, unique = true)
     private String panCardNumber;
 }

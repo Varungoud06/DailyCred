@@ -1,4 +1,5 @@
 package com.unqiuehire.kashflow.serviceimpl;
+
 import com.unqiuehire.kashflow.constant.ApiStatus;
 import com.unqiuehire.kashflow.constant.LenderConstants;
 import com.unqiuehire.kashflow.dto.requestdto.LenderRequestDto;
@@ -8,6 +9,7 @@ import com.unqiuehire.kashflow.entity.Lender;
 import com.unqiuehire.kashflow.repository.LenderRepository;
 import com.unqiuehire.kashflow.service.LenderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,22 +23,76 @@ public class LenderServiceImpl implements LenderService {
     @Autowired
     private LenderRepository lenderRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
+    public LenderServiceImpl(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public ApiResponse<LenderResponseDto> createLender(LenderRequestDto lenderRequestDto) {
-        Lender lender = new Lender();
 
+        String aadhar = lenderRequestDto.getAadharCardNumber() != null
+                ? lenderRequestDto.getAadharCardNumber().trim()
+                : null;
+
+        String pan = lenderRequestDto.getPanCardNumber() != null
+                ? lenderRequestDto.getPanCardNumber().trim()
+                : null;
+
+        boolean hasAadhar = aadhar != null && !aadhar.isEmpty();
+        boolean hasPan = pan != null && !pan.isEmpty();
+
+        if (hasAadhar && hasPan) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Please provide either Aadhar card or PAN card, not both.",
+                    null
+            );
+        }
+
+        if (!hasAadhar && !hasPan) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Please provide either Aadhar card or PAN card.",
+                    null
+            );
+        }
+
+        if (hasAadhar && lenderRepository.existsByAadharCardNumber(aadhar)) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Aadhar card already exists.",
+                    null
+            );
+        }
+
+        if (hasPan && lenderRepository.existsByPanCardNumber(pan)) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "PAN card already exists.",
+                    null
+            );
+        }
+
+        Lender lender = new Lender();
         lender.setLenderName(lenderRequestDto.getLenderName());
         lender.setDateOfBirth(LocalDate.parse(lenderRequestDto.getDateOfBirth()));
-        lender.setPassword(lenderRequestDto.getPassword());
+        lender.setPassword(passwordEncoder.encode(lenderRequestDto.getPassword()));
         lender.setIsActive(lenderRequestDto.getIsActive());
         lender.setPhoneNumber(lenderRequestDto.getPhoneNumber());
         lender.setPincode(lenderRequestDto.getPincode());
         lender.setAddress(lenderRequestDto.getAddress());
-        lender.setAadharCardNumber(lenderRequestDto.getAadharCardNumber());
-        lender.setPanCardNumber(lenderRequestDto.getPanCardNumber());
+
+        if (hasAadhar) {
+            lender.setAadharCardNumber(aadhar);
+            lender.setPanCardNumber(null);
+        } else {
+            lender.setPanCardNumber(pan);
+            lender.setAadharCardNumber(null);
+        }
 
         Lender savedLender = lenderRepository.save(lender);
-
         LenderResponseDto responseDto = mapToResponseDto(savedLender);
 
         return new ApiResponse<>(
@@ -98,16 +154,70 @@ public class LenderServiceImpl implements LenderService {
 
         Lender lender = optionalLender.get();
 
+        String aadhar = lenderRequestDto.getAadharCardNumber() != null
+                ? lenderRequestDto.getAadharCardNumber().trim()
+                : null;
+
+        String pan = lenderRequestDto.getPanCardNumber() != null
+                ? lenderRequestDto.getPanCardNumber().trim()
+                : null;
+
+        boolean hasAadhar = aadhar != null && !aadhar.isEmpty();
+        boolean hasPan = pan != null && !pan.isEmpty();
+
+        if (hasAadhar && hasPan) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Please provide either Aadhar card or PAN card, not both.",
+                    null
+            );
+        }
+
+        if (!hasAadhar && !hasPan) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Please provide either Aadhar card or PAN card.",
+                    null
+            );
+        }
+
+        if (hasAadhar
+                && !aadhar.equals(lender.getAadharCardNumber())
+                && lenderRepository.existsByAadharCardNumber(aadhar)) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Aadhar card already exists.",
+                    null
+            );
+        }
+
+        if (hasPan
+                && !pan.equals(lender.getPanCardNumber())
+                && lenderRepository.existsByPanCardNumber(pan)) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "PAN card already exists.",
+                    null
+            );
+        }
+
         lender.setLenderName(lenderRequestDto.getLenderName());
         lender.setDateOfBirth(LocalDate.parse(lenderRequestDto.getDateOfBirth()));
-        lender.setPassword(lenderRequestDto.getPassword());
+        lender.setPassword(passwordEncoder.encode(lenderRequestDto.getPassword()));
         lender.setIsActive(lenderRequestDto.getIsActive());
         lender.setPhoneNumber(lenderRequestDto.getPhoneNumber());
         lender.setPincode(lenderRequestDto.getPincode());
         lender.setAddress(lenderRequestDto.getAddress());
 
-        Lender updatedLender = lenderRepository.save(lender);
+        if (hasAadhar) {
+            lender.setAadharCardNumber(aadhar);
+            lender.setPanCardNumber(null);
+        } else {
+            lender.setPanCardNumber(pan);
+            lender.setAadharCardNumber(null);
+        }
 
+        Lender updatedLender = lenderRepository.save(lender);
         LenderResponseDto responseDto = mapToResponseDto(updatedLender);
 
         return new ApiResponse<>(

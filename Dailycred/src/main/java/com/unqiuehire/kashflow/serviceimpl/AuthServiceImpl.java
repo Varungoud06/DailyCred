@@ -1,48 +1,101 @@
-//package com.unqiuehire.kashflow.serviceimpl;
-//
-//import com.unqiuehire.kashflow.dto.requestdto.LoginRequest;
-//import com.unqiuehire.kashflow.dto.responsedto.LoginResponse;
-//import com.unqiuehire.kashflow.entity.User;
-//import com.unqiuehire.kashflow.exception.InvalidPasswordException;
-//import com.unqiuehire.kashflow.exception.InvalidRoleException;
-//import com.unqiuehire.kashflow.exception.UserNotFoundException;
-//import com.unqiuehire.kashflow.repository.UserRepository;
-//import com.unqiuehire.kashflow.service.AuthService;
-//import com.unqiuehire.kashflow.service.JwtService;
-//
-//
-//import lombok.RequiredArgsConstructor;
-//
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//@RequiredArgsConstructor
-//public class AuthServiceImpl implements AuthService {
-//
-//    private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
-//    private final JwtService jwtService;
-//
-//    @Override
-//    public LoginResponse login(LoginRequest request, String role) {
-//
-//        User user = userRepository.findByPhoneNumber(request.getPhoneNumber())
-//                .orElseThrow(() -> new UserNotFoundException("User not found"));
-//
-//        if (!user.getRole().name().equals(role)) {
-//            throw new InvalidRoleException("You are not allowed to login as " + role);
-//        }
-//
-//        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-//            throw new InvalidPasswordException("Invalid password");
-//        }
-//
-//        String token = jwtService.generateToken(
-//                user.getPhoneNumber(),
-//                user.getRole().name()
-//        );
-//
-//        return new LoginResponse(token, user.getRole().name());
-//    }
-//}
+package com.unqiuehire.kashflow.serviceimpl;
+import java.util.Optional;
+
+import com.unqiuehire.kashflow.constant.ApiStatus;
+import com.unqiuehire.kashflow.constant.Role;
+import com.unqiuehire.kashflow.dto.requestdto.LoginRequestDto;
+import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
+import com.unqiuehire.kashflow.dto.responsedto.LoginResponseDto;
+import com.unqiuehire.kashflow.entity.Borrower;
+import com.unqiuehire.kashflow.entity.Lender;
+import com.unqiuehire.kashflow.repository.BorrowerRepository;
+import com.unqiuehire.kashflow.repository.LenderRepository;
+import com.unqiuehire.kashflow.security.JwtUtil;
+import com.unqiuehire.kashflow.service.AuthService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthServiceImpl implements AuthService {
+
+    private final BorrowerRepository borrowerRepository;
+    private final LenderRepository lenderRepository;
+    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthServiceImpl(BorrowerRepository borrowerRepository,
+                           LenderRepository lenderRepository,
+                           JwtUtil jwtUtil,
+                           PasswordEncoder passwordEncoder) {
+        this.borrowerRepository = borrowerRepository;
+        this.lenderRepository = lenderRepository;
+        this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public ApiResponse<LoginResponseDto> borrowerLogin(LoginRequestDto dto) {
+        Optional<Borrower> optionalBorrower = borrowerRepository.findByPhoneNumber(dto.getPhoneNumber());
+
+        if (optionalBorrower.isEmpty()) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Borrower not found", null);
+        }
+
+        Borrower borrower = optionalBorrower.get();
+
+        if (!Boolean.TRUE.equals(borrower.getIsActive())) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Borrower account is inactive", null);
+        }
+
+        if (!passwordEncoder.matches(dto.getPassword(), borrower.getPassword())) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Invalid password", null);
+        }
+
+        String token = jwtUtil.generateToken(
+                borrower.getBorrowerId(),
+                borrower.getPhoneNumber(),
+                Role.BORROWER.name()
+        );
+
+        LoginResponseDto responseDto = new LoginResponseDto();
+        responseDto.setToken(token);
+        responseDto.setRole(Role.BORROWER.name());
+        responseDto.setUserId(borrower.getBorrowerId());
+        responseDto.setPhoneNumber(borrower.getPhoneNumber());
+
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Borrower login successful", responseDto);
+    }
+
+    @Override
+    public ApiResponse<LoginResponseDto> lenderLogin(LoginRequestDto dto) {
+        Optional<Lender> optionalLender = lenderRepository.findByPhoneNumber(dto.getPhoneNumber());
+
+        if (optionalLender.isEmpty()) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Lender not found", null);
+        }
+
+        Lender lender = optionalLender.get();
+
+        if (!Boolean.TRUE.equals(lender.getIsActive())) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Lender account is inactive", null);
+        }
+
+        if (!passwordEncoder.matches(dto.getPassword(), lender.getPassword())) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Invalid password", null);
+        }
+
+        String token = jwtUtil.generateToken(
+                lender.getLenderId(),
+                lender.getPhoneNumber(),
+                Role.LENDER.name()
+        );
+
+        LoginResponseDto responseDto = new LoginResponseDto();
+        responseDto.setToken(token);
+        responseDto.setRole(Role.LENDER.name());
+        responseDto.setUserId(lender.getLenderId());
+        responseDto.setPhoneNumber(lender.getPhoneNumber());
+
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Lender login successful", responseDto);
+    }
+}
