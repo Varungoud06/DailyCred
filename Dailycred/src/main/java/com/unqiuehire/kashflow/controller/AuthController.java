@@ -1,28 +1,31 @@
-//package com.unqiuehire.kashflow.controller;
-//
-//import com.unqiuehire.kashflow.dto.requestdto.LoginRequest;
-//import com.unqiuehire.kashflow.dto.responsedto.LoginResponse;
-//import com.unqiuehire.kashflow.service.AuthService;
-//
-//import lombok.RequiredArgsConstructor;
-//
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequestMapping("/auth")
-//@RequiredArgsConstructor
-//public class AuthController {
-//
-//    private final AuthService authService;
-//
-//    @PostMapping("/lender/login")
-//    public ResponseEntity<LoginResponse> lenderLogin(@RequestBody LoginRequest request) {
-//        return ResponseEntity.ok(authService.login(request, "LENDER"));
-//    }
-//
-//    @PostMapping("/borrower/login")
-//    public ResponseEntity<LoginResponse> borrowerLogin(@RequestBody LoginRequest request) {
-//        return ResponseEntity.ok(authService.login(request, "BORROWER"));
-//    }
-//}
+package com.unqiuehire.kashflow.controller;
+
+import com.unqiuehire.kashflow.dto.requestdto.LoginRequestDto;
+import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
+import com.unqiuehire.kashflow.dto.responsedto.LoginResponseDto;
+import com.unqiuehire.kashflow.service.AuthService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/borrower/login")
+    public ApiResponse<LoginResponseDto> borrowerLogin(@RequestBody LoginRequestDto dto) {
+        return authService.borrowerLogin(dto);
+    }
+
+    @PostMapping("/lender/login")
+    public ApiResponse<LoginResponseDto> lenderLogin(@RequestBody LoginRequestDto dto) {
+        return authService.lenderLogin(dto);
+    }
+}
