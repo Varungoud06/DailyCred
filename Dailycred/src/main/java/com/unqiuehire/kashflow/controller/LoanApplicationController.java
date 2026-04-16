@@ -26,15 +26,16 @@ public class LoanApplicationController {
         return service.getById(id);
     }
 
-    @GetMapping("/borrower/{borrowerId}")
-    public ApiResponse<List<LoanApplicationResponseDto>> getByBorrower(@PathVariable Long borrowerId) {
-        return service.getByBorrower(borrowerId);
-    }
+//    @GetMapping("/borrower/{borrowerId}")
+//    public ApiResponse<List<LoanApplicationResponseDto>> getByBorrower(@PathVariable Long borrowerId) {
+//        return service.getByBorrower(borrowerId);
+//    }
+//
+//    @GetMapping("/lender/{lenderId}")
+//    public ApiResponse<List<LoanApplicationResponseDto>> getByLender(@PathVariable Long lenderId) {
+//        return service.getByLender(lenderId);
+//    }
 
-    @GetMapping("/lender/{lenderId}")
-    public ApiResponse<List<LoanApplicationResponseDto>> getByLender(@PathVariable Long lenderId) {
-        return service.getByLender(lenderId);
-    }
 
     @PutMapping("/cancel/{id}")
     public ApiResponse<String> cancel(@PathVariable Long id) {

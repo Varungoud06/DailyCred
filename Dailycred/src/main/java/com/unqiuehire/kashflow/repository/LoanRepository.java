@@ -7,8 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface LoanRepository extends JpaRepository<Loan,Long> {
-        List<Loan> findByBorrowerId(Long borrowerId);
-        List<Loan> findByLenderId(Long lenderId);
+    List<Loan> findByBorrower_BorrowerId(Long borrowerId);
 
-    boolean existsByLoanApplicationId(Long loanApplicationId);
-}
+    List<Loan> findByLender_LenderId(Long lenderId);
+
+//        boolean existsByLoanApplication_ApplicationId(Long applicationId);
+//
+//        Loan findByLoanApplication_ApplicationId(Long applicationId);
+    }

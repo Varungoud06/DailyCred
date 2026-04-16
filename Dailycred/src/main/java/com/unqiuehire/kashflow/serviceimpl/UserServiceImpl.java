@@ -1,4 +1,4 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 
 public class UserServiceImpl {
 }

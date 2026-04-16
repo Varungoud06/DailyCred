@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "loan_applications")
@@ -18,8 +19,8 @@ public class LoanApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applicationId;
 
-    private Long borrowerId;
-    private Long lenderId;
+//    private Long borrowerId;
+//    private Long lenderId;
     private Long planId;
 
     private Double loanAmount;
@@ -32,6 +33,20 @@ public class LoanApplication {
     private Boolean isLoanCreated = false;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @OneToOne(mappedBy = "loanApplication", cascade = CascadeType.ALL)
+    private Loan loan;
+
+    @OneToMany(mappedBy = "loanApplication", cascade = CascadeType.ALL)
+    private List<LoanDecision> decisions;
+
+    @ManyToOne
+    @JoinColumn(name = "borrower_id")
+    private Borrower borrower;
+
+    @ManyToOne
+    @JoinColumn(name = "lender_id")
+    private Lender lender;
 
     @PrePersist
     public void onCreate() {

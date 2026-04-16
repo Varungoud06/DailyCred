@@ -1,9 +1,11 @@
 package com.unqiuehire.kashflow.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "lender")
@@ -42,4 +44,5 @@ public class Lender {
 
     @Column(name = "pan_card_number", nullable = true, unique = true)
     private String panCardNumber;
+
 }
