@@ -20,8 +20,8 @@ public class Borrower {
     @Column(name = "borrower_name", nullable = false)
     private String borrowerName;
 
-    @Column(name = "cibil", nullable = false)
-    private Integer cibil;
+//    @Column(name = "cibil", nullable = false)
+//    private Integer cibil;
 
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
@@ -40,4 +40,10 @@ public class Borrower {
 
     @Column(name = "address", nullable = false, length = 500)
     private String address;
+
+    @Column(name = "aadhar_card_number", nullable = false, unique = true)
+    private String aadharCardNumber;
+
+    @Column(name = "pan_card_number", nullable = false, unique = true)
+    private String panCardNumber;
 }
