@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/loan-decision")
 @CrossOrigin("*")
-public class LoanDecisionController {
+public class
+LoanDecisionController {
 
     @Autowired
     private LoanDecisionService loanDecisionService;
