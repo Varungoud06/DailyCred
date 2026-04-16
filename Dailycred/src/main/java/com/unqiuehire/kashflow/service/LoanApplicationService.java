@@ -12,10 +12,14 @@ public interface LoanApplicationService {
 
     ApiResponse<LoanApplicationResponseDto> getById(Long id);
 
-    ApiResponse<List<LoanApplicationResponseDto>> getByBorrower(Long borrowerId);
-
-    ApiResponse<List<LoanApplicationResponseDto>> getByLender(Long lenderId);
+//    ApiResponse<List<LoanApplicationResponseDto>> getByBorrower(Long borrowerId);
+//
+//    ApiResponse<List<LoanApplicationResponseDto>> getByLender(Long lenderId);
 
 
     ApiResponse<String> cancelApplication(Long id);
+
+    ApiResponse<List<LoanApplicationResponseDto>> getByBorrower(Long borrowerId);
+
+    ApiResponse<List<LoanApplicationResponseDto>> getByLender(Long lenderId);
 }

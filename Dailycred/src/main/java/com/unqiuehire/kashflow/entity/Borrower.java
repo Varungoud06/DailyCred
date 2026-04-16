@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "borrower")
@@ -14,7 +15,6 @@ public class Borrower {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "borrower_id")
     private Long borrowerId;
 
     @Column(name = "borrower_name", nullable = false)
@@ -40,4 +40,7 @@ public class Borrower {
 
     @Column(name = "address", nullable = false, length = 500)
     private String address;
+
+    @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL)
+    private List<LoanApplication> applications;
 }

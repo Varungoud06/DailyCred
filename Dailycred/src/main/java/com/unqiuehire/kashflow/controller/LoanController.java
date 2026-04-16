@@ -16,11 +16,6 @@ public class LoanController {
     @Autowired
     private LoanService loanService;
 
-    @PostMapping
-    public ApiResponse<LoanResponseDto> createLoan(@RequestBody LoanRequestDto dto) {
-        return loanService.createLoan(dto);
-    }
-
     @GetMapping("/{id}")
     public ApiResponse<LoanResponseDto> getLoanById(@PathVariable Long id) {
         return loanService.getLoanById(id);

@@ -3,6 +3,8 @@ package com.unqiuehire.kashflow.controller;
 import com.unqiuehire.kashflow.dto.requestdto.BorrowerRequestDto;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
 import com.unqiuehire.kashflow.dto.responsedto.BorrowerResponseDto;
+import com.unqiuehire.kashflow.dto.responsedto.LoanApplicationResponseDto;
+import com.unqiuehire.kashflow.entity.LoanApplication;
 import com.unqiuehire.kashflow.service.BorrowerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,11 @@ public class BorrowerController {
     @GetMapping("/{borrowerId}")
     public ApiResponse<BorrowerResponseDto> getLenderById(@PathVariable Long borrowerId) {
         return borrowerService.getBorrowerById(borrowerId);
+    }
+
+    @GetMapping("/{id}/applications")
+    public ApiResponse<List<LoanApplicationResponseDto>> getApplications(@PathVariable Long id) {
+        return borrowerService.getApplications(id);
     }
 
     @GetMapping

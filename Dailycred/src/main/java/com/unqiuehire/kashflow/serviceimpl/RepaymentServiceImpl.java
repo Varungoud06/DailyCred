@@ -1,4 +1,4 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 
 import com.unqiuehire.kashflow.constant.PaymentStatus;
 import com.unqiuehire.kashflow.dto.requestdto.RepaymentRequestDTO;
@@ -32,11 +32,13 @@ public class RepaymentServiceImpl implements RepaymentService {
         Loan loan = loanRepository.findById(request.getLoanId())
                 .orElseThrow(() -> new RuntimeException("Loan not found"));
 
-        LoanApplication loanApplication = loanApplicationRepository.findById(request.getLoanApplicationId())
+        LoanApplication loanApplication = loanApplicationRepository
+                .findById(request.getLoanApplicationId())
                 .orElseThrow(() -> new RuntimeException("Loan Application not found"));
 
-        //  VALIDATION
-        if (!loan.getLoanApplicationId().equals(request.getLoanApplicationId())) {
+        //  VALIDATION (FIXED)
+        if (!loan.getLoanApplication().getApplicationId()
+                .equals(request.getLoanApplicationId())) {
             throw new RuntimeException("Loan does not belong to given LoanApplication");
         }
 
@@ -49,6 +51,7 @@ public class RepaymentServiceImpl implements RepaymentService {
 
         loan.setRemainingAmount(remaining);
 
+        //  Close loan if fully paid
         if (remaining == 0) {
             loan.setIsClosed(true);
         }

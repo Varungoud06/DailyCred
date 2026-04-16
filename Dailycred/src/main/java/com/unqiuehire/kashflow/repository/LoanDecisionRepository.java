@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface LoanDecisionRepository extends JpaRepository<LoanDecision, Long> {
-    Optional<LoanDecision> findByLoanApplicationId(Long loanApplicationId);
-    boolean existsByLoanApplicationId(Long loanApplicationId);
+    Optional<LoanDecision> findByLoanApplication_ApplicationId(Long id);
+//    boolean existsByLoanApplication_ApplicationId(Long loanApplicationId);
 }

@@ -14,12 +14,10 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long loanId;
-
-    private Long loanApplicationId;
-    private Long borrowerId;
-    private Long lenderId;
+//    private Long loanApplicationId;
+//    private Long borrowerId;
+//    private Long lenderId;
     private Long planId;
-
     private Double totalAmount;
     private Double sanctionedAmount;
     private Double interestPerDay;
@@ -29,6 +27,17 @@ public class Loan {
     private LocalDate startDate;
     private LocalDate endDate;
     private Double dailyEmi;
-
     private Boolean isClosed;
+
+    @OneToOne
+    @JoinColumn(name = "loan_application_id", referencedColumnName = "applicationId")
+    private LoanApplication loanApplication;
+
+    @ManyToOne
+    @JoinColumn(name = "lender_id")
+    private Lender lender;
+
+    @ManyToOne
+    @JoinColumn(name = "borrower_id")
+    private Borrower borrower;
 }

@@ -17,21 +17,16 @@ public class LoanDecisionController {
     private LoanDecisionService loanDecisionService;
 
     @PostMapping("/approve/{applicationId}")
-    public ApiResponse<LoanDecisionResponseDTO> approveLoan(
-            @PathVariable Long applicationId,
-            @RequestBody LoanDecisionRequestDTO requestDTO)
-    {
-        return loanDecisionService.approveLoan(applicationId, requestDTO);
+    public ApiResponse<LoanDecisionResponseDTO> approve(@PathVariable Long applicationId,
+                                                        @RequestBody LoanDecisionRequestDTO dto) {
+        return loanDecisionService.approveLoan(applicationId, dto);
     }
 
     @PostMapping("/reject/{applicationId}")
-    public ApiResponse<LoanDecisionResponseDTO> rejectLoan(
-            @PathVariable Long applicationId,
-            @RequestBody LoanDecisionRequestDTO requestDTO)
-    {
-        return loanDecisionService.rejectLoan(applicationId, requestDTO);
+    public ApiResponse<LoanDecisionResponseDTO> reject(@PathVariable Long applicationId,
+                                                       @RequestBody LoanDecisionRequestDTO dto) {
+        return loanDecisionService.rejectLoan(applicationId, dto);
     }
-
     @GetMapping("/{applicationId}")
     public  ApiResponse<LoanDecisionResponseDTO> getLoanDecisionByApplicationId(
             @PathVariable Long applicationId)
