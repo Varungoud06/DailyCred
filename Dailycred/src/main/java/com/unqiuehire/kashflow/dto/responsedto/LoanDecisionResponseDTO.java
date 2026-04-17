@@ -16,6 +16,7 @@ public class LoanDecisionResponseDTO {
     private Long decisionId;
     private Long loanApplicationId;
     private Long loanId;
+    private Long lenderId;
     private LoanDecisionStatus decision;
     private String reason;
     private LocalDateTime decidedAt;

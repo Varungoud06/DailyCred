@@ -1,4 +1,4 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 
 import com.unqiuehire.kashflow.constant.ApiStatus;
 import com.unqiuehire.kashflow.constant.BorrowerConstants;
@@ -24,7 +24,69 @@ public class BorrowerServiceImpl implements BorrowerService {
 
     @Override
     public ApiResponse<BorrowerResponseDto> createBorrower(BorrowerRequestDto borrowerRequestDto) {
+
+        String aadhar = borrowerRequestDto.getAadharCardNumber();
+        String pan = borrowerRequestDto.getPanCardNumber();
+        String phone = borrowerRequestDto.getPhoneNumber();
+
+        if ((aadhar == null || aadhar.trim().isEmpty()) &&
+                (pan == null || pan.trim().isEmpty())) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Either Aadhar or Pancard must be provided",
+                    null
+            );
+        }
+
+        if (aadhar != null && !aadhar.trim().isEmpty() &&
+                pan != null && !pan.trim().isEmpty()) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Borrower cannot upload both Aadhar and Pancard",
+                    null
+            );
+        }
+
+        if (aadhar != null && !aadhar.trim().isEmpty()) {
+            Optional<Borrower> existingAadhar = repo.findByAadharCardNumber(aadhar.trim());
+            if (existingAadhar.isPresent()) {
+                return new ApiResponse<>(
+                        ApiStatus.FAILURE,
+                        "failed should be aadharcard already existed",
+                        null
+                );
+            }
+        }
+
+        if (pan != null && !pan.trim().isEmpty()) {
+            Optional<Borrower> existingPan = repo.findByPanCardNumber(pan.trim());
+            if (existingPan.isPresent()) {
+                return new ApiResponse<>(
+                        ApiStatus.FAILURE,
+                        "failed should be pancard already existed",
+                        null
+                );
+            }
+        }
+
+        if(phone != null && !phone.trim().isEmpty())
+        {
+            Optional<Borrower> existingphone = repo.findByPhoneNumber(phone.trim());
+            if (existingphone.isPresent())
+            {
+                return new ApiResponse<>(
+                        ApiStatus.FAILURE,
+                        "failed should be phonenumber already existed",
+                        null
+                );
+            }
+        }
+
         Borrower borrower = mapToEntity(borrowerRequestDto);
+        borrower.setAadharCardNumber(aadhar != null ? aadhar.trim() : null);
+        borrower.setPanCardNumber(pan != null ? pan.trim() : null);
+        borrower.setPhoneNumber(phone!=null ? phone.trim() : null);
+
         Borrower savedBorrower = repo.save(borrower);
 
         return new ApiResponse<>(
@@ -83,14 +145,76 @@ public class BorrowerServiceImpl implements BorrowerService {
 
         Borrower existingBorrower = optionalBorrower.get();
 
+        String aadhar = borrowerRequestDto.getAadharCardNumber();
+        String pan = borrowerRequestDto.getPanCardNumber();
+        String phone = borrowerRequestDto.getPhoneNumber();
+
+        if ((aadhar == null || aadhar.trim().isEmpty()) &&
+                (pan == null || pan.trim().isEmpty())) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Either Aadhar or Pancard must be provided",
+                    null
+            );
+        }
+
+        if (aadhar != null && !aadhar.trim().isEmpty() &&
+                pan != null && !pan.trim().isEmpty()) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Borrower cannot upload both Aadhar and Pancard",
+                    null
+            );
+        }
+
+        if (aadhar != null && !aadhar.trim().isEmpty()) {
+            Optional<Borrower> existingAadhar = repo.findByAadharCardNumber(aadhar.trim());
+            if (existingAadhar.isPresent() &&
+                    !existingAadhar.get().getBorrowerId().equals(borrowerId)) {
+                return new ApiResponse<>(
+                        ApiStatus.FAILURE,
+                        "failed should be aadharcard already existed",
+                        null
+                );
+            }
+        }
+
+        if (pan != null && !pan.trim().isEmpty()) {
+            Optional<Borrower> existingPan = repo.findByPanCardNumber(pan.trim());
+            if (existingPan.isPresent() &&
+                    !existingPan.get().getBorrowerId().equals(borrowerId)) {
+                return new ApiResponse<>(
+                        ApiStatus.FAILURE,
+                        "failed should be pancard already existed",
+                        null
+                );
+            }
+        }
+
+        if (phone != null && !phone.trim().isEmpty())
+        {
+            Optional<Borrower> existingphone = repo.findByPhoneNumber(phone.trim());
+            if (existingphone.isPresent() &&
+                !existingphone.get().getBorrowerId().equals(borrowerId))
+            {
+                return new ApiResponse<>(
+                        ApiStatus.FAILURE,
+                        "failed should be phonenumber already existed",
+                        null
+                );
+            }
+        }
+
         existingBorrower.setBorrowerName(borrowerRequestDto.getBorrowerName());
-        existingBorrower.setCibil(borrowerRequestDto.getCibil());
         existingBorrower.setPhoneNumber(borrowerRequestDto.getPhoneNumber());
         existingBorrower.setPassword(borrowerRequestDto.getPassword());
         existingBorrower.setDateOfBirth(LocalDate.parse(borrowerRequestDto.getDateOfBirth()));
         existingBorrower.setAddress(borrowerRequestDto.getAddress());
         existingBorrower.setIsActive(borrowerRequestDto.getIsActive());
         existingBorrower.setPincode(borrowerRequestDto.getPincode());
+        existingBorrower.setAadharCardNumber(aadhar != null ? aadhar.trim() : null);
+        existingBorrower.setPanCardNumber(pan != null ? pan.trim() : null);
+        existingBorrower.setPhoneNumber(phone !=null ? phone.trim() : null);
 
         Borrower updatedBorrower = repo.save(existingBorrower);
 
@@ -127,12 +251,13 @@ public class BorrowerServiceImpl implements BorrowerService {
 
         responseDto.setBorrowerId(borrower.getBorrowerId());
         responseDto.setBorrowerName(borrower.getBorrowerName());
-        responseDto.setCibil(borrower.getCibil());
         responseDto.setPhoneNumber(borrower.getPhoneNumber());
         responseDto.setDateOfBirth(String.valueOf(borrower.getDateOfBirth()));
         responseDto.setAddress(borrower.getAddress());
         responseDto.setIsActive(borrower.getIsActive());
         responseDto.setPincode(borrower.getPincode());
+        responseDto.setAadharCardNumber(borrower.getAadharCardNumber());
+        responseDto.setPanCardNumber(borrower.getPanCardNumber());
 
         return responseDto;
     }
@@ -141,7 +266,6 @@ public class BorrowerServiceImpl implements BorrowerService {
         Borrower borrower = new Borrower();
 
         borrower.setBorrowerName(borrowerRequestDto.getBorrowerName());
-        borrower.setCibil(borrowerRequestDto.getCibil());
         borrower.setPhoneNumber(borrowerRequestDto.getPhoneNumber());
         borrower.setPassword(borrowerRequestDto.getPassword());
         borrower.setDateOfBirth(LocalDate.parse(borrowerRequestDto.getDateOfBirth()));

@@ -27,6 +27,9 @@ public class LoanDecision {
     @Column(name = "loan_id", nullable = false)
     private Long loanId;
 
+    @Column(name = "lender_id", nullable = false)
+    private Long lenderId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "decision", nullable = false)
     private LoanDecisionStatus decision;

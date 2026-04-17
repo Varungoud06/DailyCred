@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class LoanDecisionRequestDTO {
     private Long loanApplicationId;
     private Long loanId;
+    private Long lenderId;
     private LoanDecisionStatus decision;
     private String reason;
 }
