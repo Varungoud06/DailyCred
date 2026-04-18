@@ -1,4 +1,8 @@
 package com.unqiuehire.kashflow.constant;
+
+import lombok.Getter;
+
+@Getter
 public enum LenderConstants {
 
     LENDER_CREATED("Lender created successfully"),
@@ -14,7 +18,4 @@ public enum LenderConstants {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
-    }
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 public class LoanPlanRequest {
 
     private String planName;
-    private Long lenderId;
+
     private double amount;
     private double interestPerDay;
     private double penaltyAmount;

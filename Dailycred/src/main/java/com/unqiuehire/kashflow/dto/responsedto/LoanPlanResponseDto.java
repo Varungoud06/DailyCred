@@ -1,12 +1,12 @@
 package com.unqiuehire.kashflow.dto.responsedto;
-
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
-@Builder
-public class LoanPlanResponse {
-
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoanPlanResponseDto {
     private Long id;
     private String planName;
     private Long lenderId;
