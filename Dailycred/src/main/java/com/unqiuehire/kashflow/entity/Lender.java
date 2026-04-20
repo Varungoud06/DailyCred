@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "lender")
@@ -36,6 +37,10 @@ public class Lender {
 
     @Column(name = "address", nullable = false, length = 500)
     private String address;
+
+    //  ONE TO MANY
+    @OneToMany(mappedBy = "lender", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LoanPlan> loanPlans;
 
     @Column(name = "aadhar_card_number",unique = true)
     private String aadharCardNumber;

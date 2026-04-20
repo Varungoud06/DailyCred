@@ -19,8 +19,6 @@ public class LoanApplication {
     private Long applicationId;
 
     private Long borrowerId;
-    private Long lenderId;
-    private Long planId;
 
     private Double loanAmount;
 
@@ -32,6 +30,11 @@ public class LoanApplication {
     private Boolean isLoanCreated = false;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    //  RELATION
+    @ManyToOne
+    @JoinColumn(name = "plan_id", nullable = false)
+    private LoanPlan loanPlan;
 
     @PrePersist
     public void onCreate() {

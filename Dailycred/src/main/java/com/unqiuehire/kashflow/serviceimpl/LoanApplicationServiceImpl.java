@@ -6,9 +6,12 @@ import com.unqiuehire.kashflow.dto.requestdto.LoanApplicationRequestDto;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
 import com.unqiuehire.kashflow.dto.responsedto.LoanApplicationResponseDto;
 import com.unqiuehire.kashflow.entity.LoanApplication;
+import com.unqiuehire.kashflow.entity.LoanPlan;
 import com.unqiuehire.kashflow.exception.ResourceNotFoundException;
 import com.unqiuehire.kashflow.repository.LoanApplicationRepository;
+import com.unqiuehire.kashflow.repository.LoanPlanRepository;
 import com.unqiuehire.kashflow.service.LoanApplicationService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +22,18 @@ import java.util.List;
 public class LoanApplicationServiceImpl implements LoanApplicationService {
 
     private final LoanApplicationRepository repository;
+    private final LoanPlanRepository loanPlanRepository;
 
     @Override
     public ApiResponse<LoanApplicationResponseDto> createApplication(LoanApplicationRequestDto dto) {
 
+        LoanPlan plan = loanPlanRepository.findById(dto.getPlanId())
+                .orElseThrow(() -> new ResourceNotFoundException("Loan Plan not found"));
+
         LoanApplication app = new LoanApplication();
 
         app.setBorrowerId(dto.getBorrowerId());
-        app.setLenderId(dto.getLenderId());
-        app.setPlanId(dto.getPlanId());
+        app.setLoanPlan(plan); //  RELATION
         app.setLoanAmount(dto.getLoanAmount());
 
         LoanApplication saved = repository.save(app);
@@ -41,6 +47,7 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 
     @Override
     public ApiResponse<LoanApplicationResponseDto> getById(Long id) {
+
         LoanApplication app = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Application not found"));
 
@@ -61,10 +68,11 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
     @Override
     public ApiResponse<List<LoanApplicationResponseDto>> getByLender(Long lenderId) {
 
-        List<LoanApplicationResponseDto> list = repository.findByLenderId(lenderId)
-                .stream()
-                .map(this::mapToDto)
-                .toList();
+        List<LoanApplicationResponseDto> list =
+                repository.findByLoanPlan_Lender_LenderId(lenderId)
+                        .stream()
+                        .map(this::mapToDto)
+                        .toList();
 
         return new ApiResponse<>(ApiStatus.SUCCESS, "Fetched", list);
     }
@@ -87,8 +95,11 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 
         dto.setApplicationId(app.getApplicationId());
         dto.setBorrowerId(app.getBorrowerId());
-        dto.setLenderId(app.getLenderId());
-        dto.setPlanId(app.getPlanId());
+        dto.setPlanId(app.getLoanPlan().getId());
+
+        //  FROM RELATION
+        dto.setLenderId(app.getLoanPlan().getLender().getLenderId());
+
         dto.setLoanAmount(app.getLoanAmount());
         dto.setStatus(app.getStatus().name());
         dto.setApplicationDate(app.getApplicationDate().toString());

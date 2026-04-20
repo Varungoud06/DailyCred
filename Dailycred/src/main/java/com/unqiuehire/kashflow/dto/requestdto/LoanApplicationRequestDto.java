@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class LoanApplicationRequestDto {
     private Long borrowerId;
-    private Long lenderId;
     private Long planId;
     private Double loanAmount;
 }

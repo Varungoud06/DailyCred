@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LoanPlanService {
 
-    ApiResponse<LoanPlanResponseDto> createLoanPlan(LoanPlanRequest request);
+    ApiResponse<LoanPlanResponseDto> createLoanPlan(Long lenderId, LoanPlanRequest request);
 
     ApiResponse<LoanPlanResponseDto> getLoanPlanById(Long id);
 
