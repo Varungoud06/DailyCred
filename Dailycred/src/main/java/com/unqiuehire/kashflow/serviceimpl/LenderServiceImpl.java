@@ -44,7 +44,7 @@ public class LenderServiceImpl implements LenderService {
         boolean hasPhone = (phone != null )&& (!phone.isEmpty());
         boolean hasAadhar = aadhar != null && !aadhar.isEmpty();
         boolean hasPan = pan != null && !pan.isEmpty();
-        if(hasPhone && lenderRepository.existsByPhoneNumber(phone)){
+        if(hasPhone && lenderRepository.findByPhoneNumber(phone)){
             return new ApiResponse<>(
                     ApiStatus.FAILURE,
                     "Mobile number already exists",
@@ -163,7 +163,7 @@ public class LenderServiceImpl implements LenderService {
         Lender lender = optionalLender.get();
         String phone=lenderRequestDto.getPhoneNumber() !=null?lenderRequestDto.getPhoneNumber().trim():null;
         boolean hasPhone=!phone.isEmpty() && phone !=null;
-        if(hasPhone && lenderRepository.existsByPhoneNumber(phone)){
+        if(hasPhone && lenderRepository.findByPhoneNumber(phone)){
             return new ApiResponse<>(
                     ApiStatus.FAILURE,
                     "phone number already exists",
