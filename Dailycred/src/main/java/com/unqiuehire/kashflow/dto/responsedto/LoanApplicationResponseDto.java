@@ -14,4 +14,6 @@ public class LoanApplicationResponseDto {
     private Double loanAmount;
     private String status;
     private String applicationDate;
+    private String rejectionReason;
+    private Boolean isLoanCreated;
 }
