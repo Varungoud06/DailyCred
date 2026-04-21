@@ -55,4 +55,7 @@ public class Repayment {
 
     //  Balance Tracking
     private Double balanceAmount;
+
+    //  Borrower tracking
+    private Long borrowerId;
 }

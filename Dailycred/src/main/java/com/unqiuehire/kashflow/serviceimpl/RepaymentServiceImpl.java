@@ -90,6 +90,7 @@ public class RepaymentServiceImpl implements RepaymentService {
                 .missedDays(request.getMissedDays())
 
                 .balanceAmount(newRemaining)
+                .borrowerId(loan.getBorrowerId())
                 .build();
 
         repaymentRepository.save(repayment);
@@ -130,6 +131,7 @@ public class RepaymentServiceImpl implements RepaymentService {
                 .missedDays(r.getMissedDays())
 
                 .balanceAmount(r.getBalanceAmount())
+                .borrowerId(r.getBorrowerId())
 
                 .transactionReference(r.getTransactionReference())
                 .build();
