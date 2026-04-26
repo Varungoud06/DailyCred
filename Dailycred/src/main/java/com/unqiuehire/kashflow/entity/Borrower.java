@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,52 @@ public class Borrower {
 
     @Column(name = "pan_card_number", unique = true, length = 20)
     private String panCardNumber;
+
+    // --------- RISK ANALYSIS READY FIELDS ---------
+    @Column(name = "monthly_income")
+    private BigDecimal monthlyIncome;
+
+    @Column(name = "income_type", length = 50)
+    private String incomeType;
+
+    @Column(name = "employment_type", length = 50)
+    private String employmentType;
+
+    @Column(name = "years_in_current_work")
+    private Integer yearsInCurrentWork;
+
+    @Column(name = "dependents_count")
+    private Integer dependentsCount;
+
+    @Column(name = "house_owned")
+    private Boolean houseOwned;
+
+    @Column(name = "shop_owned")
+    private Boolean shopOwned;
+
+    @Column(name = "risk_score")
+    private Integer riskScore = 50;
+
+    @Column(name = "eligibility_score")
+    private Integer eligibilityScore = 50;
+
+    @Column(name = "total_loans_taken")
+    private Integer totalLoansTaken = 0;
+
+    @Column(name = "loans_closed_successfully")
+    private Integer loansClosedSuccessfully = 0;
+
+    @Column(name = "loans_closed_early")
+    private Integer loansClosedEarly = 0;
+
+    @Column(name = "total_missed_days")
+    private Integer totalMissedDays = 0;
+
+    @Column(name = "total_partial_days")
+    private Integer totalPartialDays = 0;
+
+    @Column(name = "total_advance_days")
+    private Integer totalAdvanceDays = 0;
 
     @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<LoanApplication> loanApplications = new ArrayList<>();

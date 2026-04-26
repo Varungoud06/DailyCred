@@ -38,6 +38,10 @@ public class Lender {
     @Column(name = "address", nullable = false, length = 500)
     private String address;
 
+    @Column(name = "loan_application", nullable = false)
+    @OneToMany(mappedBy = "lender")
+    private List<LoanApplication> loanApplications;
+
     //  ONE TO MANY
     @OneToMany(mappedBy = "lender", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LoanPlan> loanPlans;
