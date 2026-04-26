@@ -1,26 +1,3 @@
-//package com.unqiuehire.kashflow.dto.responsedto;
-//
-//import lombok.Getter;
-//import lombok.Setter;
-//
-//import java.time.LocalDate;
-//
-//@Getter
-//@Setter
-//public class BorrowerResponseDto {
-//
-//    private Long borrowerId;
-//    private String borrowerName;
-//    private String dateOfBirth;
-//    private Boolean isActive;
-//    private String phoneNumber;
-//    private String pincode;
-//    private String address;
-//    private String aadharCardNumber;
-//    private String panCardNumber;
-//}
-
-
 package com.unqiuehire.kashflow.dto.responsedto;
 
 import lombok.Getter;
@@ -38,6 +15,7 @@ public class BorrowerResponseDto {
     private String pincode;
     private String address;
     private Integer cibil;
-//    private String aadharCardNumber;
-//    private String panCardNumber;
+    private String aadharCardNumber;
+    private String panCardNumber;
+
 }

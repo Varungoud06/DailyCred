@@ -17,14 +17,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class RiskAnalysisService {
+public class RiskAnalysisServiceImpl {
 
     private final BorrowerRepository borrowerRepo;
     private final LoanRepository loanRepo;
     private final RepaymentRepository repaymentRepo;
-    private final RiskScoreRepository scoreRepo;
+//    private final RiskScoreRepository scoreRepo;
 
-    public RiskResultResponseDto calculateRisk(UUID borrowerId) {
+    public RiskResultResponseDto calculateRisk(Long borrowerId) {
 
         Borrower borrower = borrowerRepo.findById(borrowerId)
                 .orElseThrow();
@@ -178,7 +178,7 @@ public class RiskAnalysisService {
     private double defaultScore(List<Loan> loans) {
 
         long defaults = loans.stream()
-                .filter(l -> l.getStatus().equals("DEFAULTED"))
+                .filter(l -> l.getIsClosed().equals("DEFAULTED"))
                 .count();
 
         return defaults == 0 ? 1 : 0;
@@ -187,11 +187,13 @@ public class RiskAnalysisService {
     private double dtiScore(Borrower borrower, List<Loan> loans) {
 
         double totalDebt = loans.stream()
-                .filter(l -> l.getStatus().equals("ACTIVE"))
-                .mapToDouble(Loan::getLoanAmount)
+                .filter(l -> l.getIsClosed().equals("ACTIVE"))
+                .mapToDouble(Loan::getSanctionedAmount)
                 .sum();
 
-        double ratio = totalDebt / borrower.getIncome();
+//        double ratio = totalDebt / borrower.getIncome();
+
+        double ratio = totalDebt / 5000000;
 
         if (ratio < 0.3) return 1;
         if (ratio < 0.6) return 0.7;
