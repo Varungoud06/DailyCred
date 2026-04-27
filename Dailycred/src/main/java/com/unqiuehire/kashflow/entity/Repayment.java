@@ -39,7 +39,7 @@ public class Repayment {
     private Loan loan;
 
     @ManyToOne
-    @JoinColumn(name = "loan_application_id", nullable = false)
+    @JoinColumn(name = "loan_applications_id", nullable = false)
     private LoanApplication loanApplication;
 
     private Boolean isPartialPayment;

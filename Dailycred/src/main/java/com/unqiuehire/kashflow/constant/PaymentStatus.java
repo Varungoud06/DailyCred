@@ -1,6 +1,7 @@
 package com.unqiuehire.kashflow.constant;
 
 public enum PaymentStatus {
+    PAID,
     FULL,
     PARTIAL,
     MISSED,
