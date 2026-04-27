@@ -10,7 +10,7 @@ public interface BorrowerService {
 
     ApiResponse<BorrowerResponseDto> createBorrower(BorrowerRequestDto borrowerRequestDto);
 
-    ApiResponse<BorrowerResponseDto> getBorrowerById(Long BorrowerId);
+    ApiResponse<BorrowerResponseDto> getBorrowerById(Long borrowerId);
 
     ApiResponse<List<BorrowerResponseDto>> getAllBorrowers();
 

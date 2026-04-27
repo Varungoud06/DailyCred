@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9b9adb6c-f160-43bf-a547-10fa62c93b2b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/constant/PaymentStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/constant/PaymentStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/dto/responsedto/RiskResultResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/dto/responsedto/RiskResultResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/entity/Repayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/entity/Repayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/RiskAnalysisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/src/main/java/com/unqiuehire/kashflow/serviceimpl/RiskAnalysisServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dailycred/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Dailycred/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,9 +58,16 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.DailyCred.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.LoanApplication.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RunManager">
@@ -80,22 +91,11 @@
       <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="demo" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="demo" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
       </set>
     </attachedChunks>
   </component>
