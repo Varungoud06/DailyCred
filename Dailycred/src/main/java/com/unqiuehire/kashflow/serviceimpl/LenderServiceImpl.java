@@ -1,4 +1,4 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 
 import com.unqiuehire.kashflow.constant.ApiStatus;
 import com.unqiuehire.kashflow.constant.LenderConstants;

@@ -1,4 +1,4 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 
 import com.unqiuehire.kashflow.dto.responsedto.RiskResultResponseDto;
 import com.unqiuehire.kashflow.entity.Borrower;
@@ -39,7 +39,7 @@ public class RiskAnalysisServiceImpl {
             );
         }
 
-        // 🔷 Factor Scores
+        //  Factor Scores
         double missedScore = missedPaymentsScore(repayments);
         double delayScore = delaySeverityScore(repayments);
         double partialScore = partialPaymentScore(repayments);
@@ -50,7 +50,7 @@ public class RiskAnalysisServiceImpl {
         double defaultScore = defaultScore(loans);
         double dtiScore = dtiScore(borrower, loans);
 
-        // 🔷 Weighted Score (0–1)
+        //  Weighted Score (0–1)
         double weightedScore =
                 missedScore * 0.30 +
                         delayScore * 0.20 +
@@ -62,20 +62,20 @@ public class RiskAnalysisServiceImpl {
                         dtiScore * 0.10 +
                         earlyBonus;
 
-        // 🔷 Convert to 0–100
+        //  Convert to 0–100
         double finalScore = weightedScore * 100;
 
-        // 🔴 Consistency Penalty
+        //  Consistency Penalty
         if (consistencyScore < 0.2) {
             finalScore -= 30;
         }
 
-        // 🔷 Clamp
+        //  Clamp
         finalScore = Math.max(0, Math.min(100, finalScore));
 
         int score = (int) finalScore;
 
-        // 🔷 Eligibility + Loan Amount
+        //  Eligibility + Loan Amount
         String eligibility = getLoanEligibility(score);
 
         double income = borrower.getMonthlyIncome() != null
