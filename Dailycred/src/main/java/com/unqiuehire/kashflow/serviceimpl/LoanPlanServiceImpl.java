@@ -4,8 +4,10 @@ import com.unqiuehire.kashflow.constant.LoanPlanStatus;
 import com.unqiuehire.kashflow.dto.requestdto.LoanPlanRequest;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
 import com.unqiuehire.kashflow.dto.responsedto.LoanPlanResponseDto;
+import com.unqiuehire.kashflow.entity.Borrower;
 import com.unqiuehire.kashflow.entity.Lender;
 import com.unqiuehire.kashflow.entity.LoanPlan;
+import com.unqiuehire.kashflow.repository.BorrowerRepository;
 import com.unqiuehire.kashflow.repository.LenderRepository;
 import com.unqiuehire.kashflow.repository.LoanPlanRepository;
 import com.unqiuehire.kashflow.service.LoanPlanService;
@@ -23,6 +25,9 @@ public class LoanPlanServiceImpl implements LoanPlanService {
 
     @Autowired
     private LenderRepository lenderRepository;
+
+    @Autowired
+    private BorrowerRepository borrowerRepository;
 
     // CREATE
     @Override
@@ -159,6 +164,33 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         loanPlanRepository.delete(loanPlan);
 
         return new ApiResponse<>(ApiStatus.SUCCESS, "Loan Plan deleted successfully", null);
+    }
+
+    // GETALL NEARBY LOANPLAN
+    @Override
+    public ApiResponse<List<LoanPlanResponseDto>> findNearbyLoanPlansByBorrowerId(Long borrowerId) {
+
+        Borrower borrower = borrowerRepository.findById(borrowerId).orElse(null);
+
+        if (borrower == null) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Borrower not found", null);
+        }
+
+        if (borrower.getPincode() == null || borrower.getPincode().trim().isEmpty()) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Borrower pincode not found", null);
+        }
+
+        List<LoanPlan> plans = loanPlanRepository.findByServicePinCode(borrower.getPincode());
+
+        if (plans.isEmpty()) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "No nearby loan plans found", null);
+        }
+
+        List<LoanPlanResponseDto> responseList = plans.stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Nearby loan plans fetched successfully", responseList);
     }
 
     // MAPPER

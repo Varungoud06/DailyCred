@@ -54,6 +54,14 @@ public class LoanPlanController {
         return service.deleteLoanPlanByLenderId(lenderId, planId);
     }
 
+    // GET ALL NEARBY LENDER
+    @GetMapping("/nearby/borrower/{borrowerId}")
+    public ApiResponse<List<LoanPlanResponseDto>> getNearbyPlansByBorrower(
+            @PathVariable Long borrowerId) {
+
+        return service.findNearbyLoanPlansByBorrowerId(borrowerId);
+    }
+
 
 //    @PostMapping
 //    public ApiResponse<LoanPlanResponseDto> create(@RequestBody LoanPlanRequest request) {
