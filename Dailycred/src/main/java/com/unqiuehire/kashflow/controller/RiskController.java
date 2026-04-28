@@ -1,7 +1,7 @@
 package com.unqiuehire.kashflow.controller;
 
 import com.unqiuehire.kashflow.dto.responsedto.RiskResultResponseDto;
-import com.unqiuehire.kashflow.serviceimpl.RiskAnalysisServiceImpl;
+import com.unqiuehire.kashflow.serviceImpl.RiskAnalysisServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

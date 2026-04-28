@@ -1,4 +1,4 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 import com.unqiuehire.kashflow.constant.ApiStatus;
 import com.unqiuehire.kashflow.constant.ApplicationStatus;
 import com.unqiuehire.kashflow.dto.requestdto.LoanApplicationApprovalRequestDto;
@@ -203,9 +203,11 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
                 loanRequest.setInterestPerDay(application.getLoanPlan().getInterestPerDay());
                 loanRequest.setPenaltyAmount(application.getLoanPlan().getPenaltyAmount());
 
-                loanRequest.setStartDate(LocalDate.now()); // 🔥 repayment starts here
+                // repayment starts here
+                loanRequest.setStartDate(LocalDate.now());
 
-                loanService.createLoan(loanRequest); // 🔥 creates loan + wallet flow
+                // creates loan + wallet flow
+                loanService.createLoan(loanRequest);
 
                 application.setIsLoanCreated(true);
             }
