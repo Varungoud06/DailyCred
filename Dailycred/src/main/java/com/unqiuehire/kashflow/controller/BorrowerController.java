@@ -17,7 +17,7 @@ public class BorrowerController {
 
     private final BorrowerService borrowerService;
 
-    @PostMapping
+    @PostMapping("/register")
     public ApiResponse<BorrowerResponseDto> createBorrower(@RequestBody BorrowerRequestDto borrowerRequestDto) {
         return borrowerService.createBorrower(borrowerRequestDto);
     }

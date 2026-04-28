@@ -11,6 +11,7 @@ import com.unqiuehire.kashflow.repository.LoanApplicationRepository;
 import com.unqiuehire.kashflow.repository.LoanRepository;
 import com.unqiuehire.kashflow.repository.RepaymentRepository;
 import com.unqiuehire.kashflow.service.RepaymentService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class RepaymentServiceImpl implements RepaymentService {
     private final LoanApplicationRepository loanApplicationRepository;
 
     @Override
+    @Transactional
     public RepaymentResponseDTO makePayment(RepaymentRequestDTO request) {
 
         Loan loan = loanRepository.findById(request.getLoanId())
