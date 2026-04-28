@@ -13,7 +13,12 @@ public interface LoanPlanService {
     ApiResponse<List<LoanPlanResponseDto>> getLoanPlansByLenderId(Long lenderId);
 
     ApiResponse<LoanPlanResponseDto> updateLoanPlanByLenderId(Long lenderId,Long planId,LoanPlanRequest request);
-//
+
+    ApiResponse<List<LoanPlanResponseDto>> getAllLoanPlans();
+
+    ApiResponse<String> deleteLoanPlanByLenderId(Long lenderId, Long planId);
+
+
 //    ApiResponse<LoanPlanResponseDto> createLoanPlan(LoanPlanRequest request);
 //
 //    ApiResponse<LoanPlanResponseDto> getLoanPlanById(Long id);

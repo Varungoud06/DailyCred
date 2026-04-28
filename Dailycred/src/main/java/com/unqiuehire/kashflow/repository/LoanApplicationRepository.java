@@ -16,5 +16,12 @@ public interface LoanApplicationRepository extends JpaRepository<LoanApplication
 
     List<LoanApplication> findByLoanPlan_Lender_LenderId(Long lenderId);
 
-    boolean existsByBorrower_BorrowerIdAndLoanPlan_IdAndStatus(Long borrowerId, Long planId, ApplicationStatus status);
+    boolean existsByBorrower_BorrowerIdAndLender_LenderIdAndLoanPlan_IdAndStatusIn(
+            Long borrowerId,
+            Long lenderId,
+            Long planId,
+            List<ApplicationStatus> statuse
+    );
+
+
 }

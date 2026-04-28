@@ -29,10 +29,8 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 
     @Autowired
     private LoanApplicationRepository loanApplicationRepository;
-
     @Autowired
     private LoanPlanRepository loanPlanRepository;
-
     @Autowired
     private BorrowerRepository borrowerRepository;
     @Autowired
@@ -56,6 +54,22 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
         Optional<LoanPlan> planOptional = loanPlanRepository.findById(planId);
         if (planOptional.isEmpty()) {
             return new ApiResponse<>(ApiStatus.FAILURE, "Loan plan not found", null);
+        }
+
+        boolean alreadyApplied =
+                loanApplicationRepository.existsByBorrower_BorrowerIdAndLender_LenderIdAndLoanPlan_IdAndStatusIn(
+                        borrowerId,
+                        lenderId,
+                        planId,
+                        List.of(ApplicationStatus.PENDING, ApplicationStatus.APPROVED)
+                );
+
+        if (alreadyApplied) {
+            return new ApiResponse<>(
+                    ApiStatus.FAILURE,
+                    "Borrower already applied for this loan plan",
+                    null
+            );
         }
 
         Borrower borrower = borrowerOptional.get();
