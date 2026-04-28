@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LoanPlanRepository extends JpaRepository<LoanPlan, Long> {
     List<LoanPlan> findByLender_LenderId(Long lenderId);
+    List<LoanPlan> findByServicePinCode(String servicePinCode);
 }

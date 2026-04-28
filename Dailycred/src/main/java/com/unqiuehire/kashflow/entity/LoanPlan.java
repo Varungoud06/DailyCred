@@ -24,7 +24,7 @@ public class LoanPlan {
     private double interestPerDay;
     private double penaltyAmount;
     private int planDuration;
-    private double maxRadius;
+//    private double maxRadius;
     private int minCibil;
     private Integer minAge;
     private Integer MaxAge;

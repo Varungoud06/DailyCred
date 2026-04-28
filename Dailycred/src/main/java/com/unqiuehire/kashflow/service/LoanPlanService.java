@@ -4,6 +4,7 @@ import com.unqiuehire.kashflow.dto.requestdto.LoanPlanRequest;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
 import com.unqiuehire.kashflow.dto.responsedto.LoanPlanResponseDto;
 
+
 import java.util.List;
 
 public interface LoanPlanService {
@@ -17,6 +18,8 @@ public interface LoanPlanService {
     ApiResponse<List<LoanPlanResponseDto>> getAllLoanPlans();
 
     ApiResponse<String> deleteLoanPlanByLenderId(Long lenderId, Long planId);
+
+    ApiResponse<List<LoanPlanResponseDto>> findNearbyLoanPlansByBorrowerId(Long borrowerId);
 
 
 //    ApiResponse<LoanPlanResponseDto> createLoanPlan(LoanPlanRequest request);
