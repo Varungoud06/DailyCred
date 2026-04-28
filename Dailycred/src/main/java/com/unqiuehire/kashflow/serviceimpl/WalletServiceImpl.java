@@ -1,4 +1,4 @@
-package com.unqiuehire.kashflow.serviceimpl;
+package com.unqiuehire.kashflow.serviceImpl;
 
 import com.unqiuehire.kashflow.constant.WalletOwnerType;
 import com.unqiuehire.kashflow.constant.WalletTransactionType;
