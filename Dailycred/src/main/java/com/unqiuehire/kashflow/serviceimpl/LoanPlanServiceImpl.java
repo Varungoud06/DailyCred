@@ -24,7 +24,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
     @Autowired
     private LenderRepository lenderRepository;
 
-    // ✅ CREATE
+    // CREATE
     @Override
     public ApiResponse<LoanPlanResponseDto> createLoanPlan(Long lenderId, LoanPlanRequest request) {
 
@@ -56,7 +56,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         return new ApiResponse<>(ApiStatus.SUCCESS, "Loan Plan Created", mapToResponse(saved));
     }
 
-    // ✅ GET BY LENDER ID
+    // GET BY LENDER ID
     @Override
     public ApiResponse<List<LoanPlanResponseDto>> getLoanPlansByLenderId(Long lenderId) {
 
@@ -79,7 +79,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
         return new ApiResponse<>(ApiStatus.SUCCESS, "Loan Plans fetched", responseList);
     }
 
-    // ✅ UPDATE BY LENDER ID
+    // UPDATE BY LENDER ID
     @Override
     public ApiResponse<LoanPlanResponseDto> updateLoanPlanByLenderId(Long lenderId, Long planId, LoanPlanRequest request) {
 
@@ -95,7 +95,7 @@ public class LoanPlanServiceImpl implements LoanPlanService {
             return new ApiResponse<>(ApiStatus.FAILURE, "Loan Plan not found", null);
         }
 
-        // 🔥 Ensure plan belongs to lender
+        // Ensure plan belongs to lender
         if (!loanPlan.getLender().getLenderId().equals(lenderId)) {
             return new ApiResponse<>(ApiStatus.FAILURE, "Unauthorized: Plan not belongs to lender", null);
         }
@@ -119,8 +119,49 @@ public class LoanPlanServiceImpl implements LoanPlanService {
 
         return new ApiResponse<>(ApiStatus.SUCCESS, "Loan Plan Updated", mapToResponse(updated));
     }
+    // GET ALL LOAN PLAN
+    @Override
+    public ApiResponse<List<LoanPlanResponseDto>> getAllLoanPlans() {
 
-    // ✅ MAPPER
+        List<LoanPlan> plans = loanPlanRepository.findAll();
+
+        if (plans.isEmpty()) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "No Loan Plans found", null);
+        }
+
+        List<LoanPlanResponseDto> responseList = plans.stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+
+        return new ApiResponse<>(ApiStatus.SUCCESS, "All Loan Plans fetched", responseList);
+    }
+
+    // DELETE THE LOAN PLAN
+    @Override
+    public ApiResponse<String> deleteLoanPlanByLenderId(Long lenderId, Long planId) {
+
+        Lender lender = lenderRepository.findById(lenderId).orElse(null);
+
+        if (lender == null) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Lender not found", null);
+        }
+
+        LoanPlan loanPlan = loanPlanRepository.findById(planId).orElse(null);
+
+        if (loanPlan == null) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Loan Plan not found", null);
+        }
+
+        if (!loanPlan.getLender().getLenderId().equals(lenderId)) {
+            return new ApiResponse<>(ApiStatus.FAILURE, "Unauthorized: Plan not belongs to lender", null);
+        }
+
+        loanPlanRepository.delete(loanPlan);
+
+        return new ApiResponse<>(ApiStatus.SUCCESS, "Loan Plan deleted successfully", null);
+    }
+
+    // MAPPER
     private LoanPlanResponseDto mapToResponse(LoanPlan loanPlan) {
 
         LoanPlanResponseDto response = new LoanPlanResponseDto();

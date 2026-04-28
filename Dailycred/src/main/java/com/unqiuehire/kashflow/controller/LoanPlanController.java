@@ -16,6 +16,8 @@ import java.util.List;
 public class LoanPlanController {
 
     private final LoanPlanService service;
+
+    //ADD LOAN PLAN
     @PostMapping("/lender/{lenderId}")
     public ApiResponse<LoanPlanResponseDto> create(
             @PathVariable Long lenderId,
@@ -37,6 +39,22 @@ public class LoanPlanController {
             @RequestBody LoanPlanRequest request) {
         return service.updateLoanPlanByLenderId(lenderId, planId, request);
     }
+
+    // GET ALL
+    @GetMapping
+    public ApiResponse<List<LoanPlanResponseDto>> getAll() {
+        return service.getAllLoanPlans();
+    }
+
+    // DELETE LOAN PLAN
+    @DeleteMapping("/lender/{lenderId}/plan/{planId}")
+    public ApiResponse<String> delete(
+            @PathVariable Long lenderId,
+            @PathVariable Long planId) {
+        return service.deleteLoanPlanByLenderId(lenderId, planId);
+    }
+
+
 //    @PostMapping
 //    public ApiResponse<LoanPlanResponseDto> create(@RequestBody LoanPlanRequest request) {
 //        return service.createLoanPlan(request);

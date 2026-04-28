@@ -1,5 +1,6 @@
 package com.unqiuehire.kashflow.service;
 
+import com.unqiuehire.kashflow.constant.ApplicationStatus;
 import com.unqiuehire.kashflow.dto.requestdto.LoanApplicationApprovalRequestDto;
 import com.unqiuehire.kashflow.dto.requestdto.LoanApplicationRequestDto;
 import com.unqiuehire.kashflow.dto.responsedto.ApiResponse;
@@ -19,12 +20,12 @@ public interface LoanApplicationService {
             Long lenderId,
             LoanApplicationApprovalRequestDto requestDto
     );
-//
     ApiResponse<LoanApplicationResponseDto> getApplicationById(Long applicationId);
 
     ApiResponse<List<LoanApplicationResponseDto>> getApplicationsByLenderId(Long lenderId);
 
     ApiResponse<List<LoanApplicationResponseDto>> getApplicationsByBorrowerId(Long borrowerId);
+
 
 //    ApiResponse<LoanApplicationResponseDto> createApplication(LoanApplicationRequestDto dto);
 //
